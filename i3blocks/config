@@ -1,0 +1,45 @@
+
+[separator]
+command=echo "|"
+interval=once
+
+[weather]
+label=Weather:
+command=/home/noah/.config/i3blocks/weather.sh
+interval=1800  # every 30 minutes
+
+[time]
+command=date '+%Y-%m-%d %H:%M:%S'
+interval=5
+color=#ffffff
+
+[cpu_temp]
+label=CPU:
+command=echo "$(($(cat /sys/class/thermal/thermal_zone0/temp) / 1000))°C"
+interval=10
+color=#ffa500
+
+[gpu_temp]
+label=GPU:
+command=nvidia-smi --query-gpu=temperature.gpu --format=csv,noheader,nounits | head -n1 | awk '{print $1 "°C"}'
+interval=10
+color=#ffa500
+
+[memory]
+label=RAM:
+command=free -h | awk '/^Mem/ { print $3 "/" $2 }'
+interval=20
+color=#98c379
+
+[battery]
+label=Bat:
+command=acpi -b | awk '{print $4}' | sed 's/,//'
+interval=30
+color=#d19a66
+
+[volume]
+label=Vol:
+command=~/.config/i3blocks/volume.sh
+interval=1
+signal=10
+color=#c678dd
