@@ -34,10 +34,6 @@ require('lazy').setup({
     -- LSP Configuration & Plugins
     'neovim/nvim-lspconfig',
     dependencies = {
-      -- Automatically install LSPs to stdpath for neovim
-      { 'williamboman/mason.nvim', config = true },
-      'williamboman/mason-lspconfig.nvim',
-
       -- Useful status updates for LSP
       -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
       { 'j-hui/fidget.nvim', opts = {} },
@@ -145,12 +141,24 @@ require('lazy').setup({
     },
     build = ':TSUpdate',
   },
+  
+  {
+    -- View markdown files in the browser
+    "iamcco/markdown-preview.nvim",
+    cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
+    ft = { "markdown" },
+    build = function()
+      vim.cmd [[Lazy load markdown-preview.nvim]]
+      vim.fn["mkdp#util#install"]()
+    end,
+  },
 
   {
-    -- View markdown files in nvim
-    "ellisonleao/glow.nvim",
-    config = true,
-    cmd = "Glow",
+    -- Launch typst previews from neovim
+    'chomosuke/typst-preview.nvim',
+    lazy = false,
+    version = '1.3.2',
+    opts = {},
   },
 }, {})
 
@@ -251,11 +259,24 @@ vim.keymap.set('n', '<leader>gf', require('telescope.builtin').git_files, { desc
 vim.keymap.set('n', '<leader>sf', require('telescope.builtin').find_files, { desc = '[S]earch [F]iles' })
 vim.keymap.set('n', '<leader>sg', require('telescope.builtin').live_grep, { desc = '[S]earch by [G]rep' })
 
+vim.keymap.set('n', '<leader>m', '<Cmd>MarkDownPreviewToggle<CR>', { desc = 'Toggle Markdown Preview' })
+vim.keymap.set('n', '<leader>t', '<Cmd>TypstPreviewToggle<CR>', { desc = 'Toogle Typst Preview' })
+
 -- [[ Configure Treesitter ]]
 -- See `:help nvim-treesitter`
 require('nvim-treesitter.configs').setup {
   -- Add languages to be installed here that you want installed for treesitter
-  ensure_installed = { 'c', 'cpp', 'lua', 'python', 'rust', 'vimdoc', 'vim' },
+  ensure_installed = {
+    'c',
+    'cpp',
+    'lua',
+    'python',
+    'rust',
+    'go',
+    'vimdoc',
+    'vim',
+    'typst'
+  },
 
   -- Autoinstall languages that are not installed. Defaults to false (but you can change for yourself!)
   auto_install = true,
@@ -351,23 +372,6 @@ require('neodev').setup()
 -- nvim-cmp supports additional completion capabilities, so broadcast that to servers
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
-
--- Ensure the servers above are installed
-local mason_lspconfig = require 'mason-lspconfig'
-
-mason_lspconfig.setup {
-  ensure_installed = vim.tbl_keys(servers),
-}
-
--- mason_lspconfig.setup_handlers {
---   function(server_name)
---     require('lspconfig')[server_name].setup {
---       capabilities = capabilities,
---       on_attach = on_attach,
---       settings = servers[server_name],
---     }
---   end,
--- }
 
 -- [[ Configure nvim-cmp ]]
 -- See `:help cmp`
