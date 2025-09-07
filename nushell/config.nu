@@ -44,7 +44,7 @@ def git_left_prompt [in_left_prompt] {
     # Get the branch info first
     let branch_info = git branch -l
       | lines
-      | filter {|e| $e | str contains "*" }
+      | where {|e| $e | str contains "*" }
       | each {|e| $e | str replace "* " "="}
       | get 0
 
