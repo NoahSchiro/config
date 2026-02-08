@@ -8,12 +8,10 @@ declare -A LINUX_MAP=(
   [i3blocks]="$HOME/.config/i3blocks"
   [rofi]="$HOME/.config/rofi"
   [nvim]="$HOME/.config/nvim"
-  [nushell]="$HOME/.config/nushell"
 )
 
 declare -A MAC_MAP=(
   [nvim]="$HOME/.config/nvim"
-  [nushell]="$HOME/.config/nushell"
 )
 
 # Determine OS
