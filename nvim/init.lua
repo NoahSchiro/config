@@ -259,7 +259,7 @@ vim.keymap.set('n', '<leader>gf', require('telescope.builtin').git_files, { desc
 vim.keymap.set('n', '<leader>sf', require('telescope.builtin').find_files, { desc = '[S]earch [F]iles' })
 vim.keymap.set('n', '<leader>sg', require('telescope.builtin').live_grep, { desc = '[S]earch by [G]rep' })
 
-vim.keymap.set('n', '<leader>m', '<Cmd>MarkDownPreviewToggle<CR>', { desc = 'Toggle Markdown Preview' })
+vim.keymap.set('n', '<leader>m', '<Cmd>MarkdownPreviewToggle<CR>', { desc = 'Toggle Markdown Preview' })
 vim.keymap.set('n', '<leader>t', '<Cmd>TypstPreviewToggle<CR>', { desc = 'Toogle Typst Preview' })
 
 -- [[ Configure Treesitter ]]
