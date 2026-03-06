@@ -37,6 +37,9 @@ bindsym $mod+p exec bash -c grim -g "$(slurp)" ~/$(date +%Y-%m-%d_%H-%M-%S).png
 # background photo
 output * bg ~/.config/sway/wallpaper.jpg fill
 
+# Start multi keyboard setup
+exec --no-startup-id fcitx5 -d
+
 # change focus
 bindsym $mod+j focus left
 bindsym $mod+k focus down
