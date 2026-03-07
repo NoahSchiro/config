@@ -43,6 +43,20 @@
     };
   };
 
+  fonts = {
+    packages = with pkgs; [
+      noto-fonts-cjk-sans
+      noto-fonts-cjk-serif
+    ];
+    fontconfig = {
+      antialias = true;
+      hinting = {
+	enable = true;
+	style = "slight";
+      };
+    };
+  };
+
   services.xserver.videoDrivers = [ "nvidia" ];
 
   hardware.nvidia = {
