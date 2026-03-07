@@ -156,6 +156,7 @@
 
     # Terminal programs
     ffmpeg_7
+    mpv
     neofetch
     alacritty
     vim
