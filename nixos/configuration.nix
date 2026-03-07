@@ -35,7 +35,8 @@
 
     # Mandarin input
     inputMethod = {
-      enabled = "fcitx5";
+      type = "fcitx5";
+      enable = true;
       fcitx5.addons = with pkgs; [
         qt6Packages.fcitx5-chinese-addons
 	fcitx5-gtk
@@ -57,7 +58,14 @@
     };
   };
 
+  # Set up docker daemon
+  virtualisation.docker.enable = true;
+  
+  # Enable nvidia in general
   services.xserver.videoDrivers = [ "nvidia" ];
+
+  # Enable nvidia in docker
+  hardware.nvidia-container-toolkit.enable = true;
 
   hardware.nvidia = {
     package = config.boot.kernelPackages.nvidiaPackages.stable;
@@ -157,6 +165,7 @@
     # Terminal programs
     ffmpeg_7
     mpv
+    portaudio
     neofetch
     alacritty
     vim
@@ -165,6 +174,8 @@
     btop
     git
     tree
+    docker
+    nvidia-container-toolkit
     file
     yt-dlp
 
