@@ -173,15 +173,19 @@
     wget
     btop
     git
+    tree-sitter
     tree
     docker
-    nvidia-container-toolkit
     file
     yt-dlp
+
+    # Random deps
+    nvidia-container-toolkit
 
     # Programming languages
     nodejs_24
     rustup
+    gcc
     python3
     uv
     go
@@ -211,6 +215,10 @@
   programs.nix-ld.libraries = with pkgs; [
     stdenv.cc.cc.lib
     zlib
+    libGL
+    glib
+    fontconfig
+    freetype
     openssl
     portaudio
     openblas
