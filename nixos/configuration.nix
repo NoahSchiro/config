@@ -177,6 +177,7 @@
     tree
     docker
     file
+    unzip
     yt-dlp
 
     # Random deps
