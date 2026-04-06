@@ -1,25 +1,16 @@
-# Edit this configuration file to define what should be installed on
-# your system.  Help is available in the configuration.nix(5) man page
-# and in the NixOS manual (accessible by running ‘nixos-help’).
-
 { config, pkgs, ... }:
 
 {
   imports =
-    [ # Include the results of the hardware scan.
+    [
       ./hardware-configuration.nix
     ];
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-
-  networking.hostName = "nixos"; # Define your hostname.
-  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-
-  # Configure network proxy if necessary
-  # networking.proxy.default = "http://user:password@proxy:port/";
-  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
+  # Define your hostname.
+  networking.hostName = "nixos";
 
   # Enable networking
   networking.networkmanager.enable = true;
@@ -28,21 +19,53 @@
   time.timeZone = "America/New_York";
 
   # Select internationalisation properties.
-  i18n.defaultLocale = "en_US.UTF-8";
+  i18n = {
+    defaultLocale = "en_US.UTF-8";
+    extraLocaleSettings = {
+      LC_ADDRESS        = "en_US.UTF-8";
+      LC_IDENTIFICATION = "en_US.UTF-8";
+      LC_MEASUREMENT    = "en_US.UTF-8";
+      LC_MONETARY       = "en_US.UTF-8";
+      LC_NAME           = "en_US.UTF-8";
+      LC_NUMERIC        = "en_US.UTF-8";
+      LC_PAPER          = "en_US.UTF-8";
+      LC_TELEPHONE      = "en_US.UTF-8";
+      LC_TIME           = "en_US.UTF-8";
+    };
 
-  i18n.extraLocaleSettings = {
-    LC_ADDRESS = "en_US.UTF-8";
-    LC_IDENTIFICATION = "en_US.UTF-8";
-    LC_MEASUREMENT = "en_US.UTF-8";
-    LC_MONETARY = "en_US.UTF-8";
-    LC_NAME = "en_US.UTF-8";
-    LC_NUMERIC = "en_US.UTF-8";
-    LC_PAPER = "en_US.UTF-8";
-    LC_TELEPHONE = "en_US.UTF-8";
-    LC_TIME = "en_US.UTF-8";
+    # Mandarin input
+    inputMethod = {
+      type = "fcitx5";
+      enable = true;
+      fcitx5.addons = with pkgs; [
+        qt6Packages.fcitx5-chinese-addons
+	fcitx5-gtk
+      ];
+    };
   };
 
+  fonts = {
+    packages = with pkgs; [
+      noto-fonts-cjk-sans
+      noto-fonts-cjk-serif
+    ];
+    fontconfig = {
+      antialias = true;
+      hinting = {
+	enable = true;
+	style = "slight";
+      };
+    };
+  };
+
+  # Set up docker daemon
+  virtualisation.docker.enable = true;
+  
+  # Enable nvidia in general
   services.xserver.videoDrivers = [ "nvidia" ];
+
+  # Enable nvidia in docker
+  hardware.nvidia-container-toolkit.enable = true;
 
   hardware.nvidia = {
     package = config.boot.kernelPackages.nvidiaPackages.stable;
@@ -81,8 +104,17 @@
 
     # If using a compositor like Hyprland or sway that uses wlroots:
     WLR_RENDERER = "vulkan"; # optional
-  };
 
+    # Make dark theme
+    GTK_THEME = "Adwaita:dark";
+
+    # Mandarin support
+    GTK_IM_MODULE = "fcitx";
+    QT_IM_MODULE = "fcitx";
+    XMODIFIERS = "@im=fcitx";
+    SDL_IM_MODULE = "fcitx";
+    GLFW_IM_MODULE = "ibus";
+  };
 
   programs.sway = {
     enable = false;
@@ -113,11 +145,6 @@
     packages = with pkgs; [];
   };
 
-  # Make dark theme
-  environment.sessionVariables = {
-    GTK_THEME = "Adwaita:dark";
-  };
-
   qt = {
     enable = true;
     platformTheme = "gtk2";
@@ -127,11 +154,18 @@
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
+  # Packages
   environment.systemPackages = with pkgs; [
+
+    # GUI programs
     firefox
     bitwarden-desktop
+    anki
+
+    # Terminal programs
+    ffmpeg_7
+    mpv
+    portaudio
     neofetch
     alacritty
     vim
@@ -139,11 +173,20 @@
     wget
     btop
     git
+    tree-sitter
     tree
+    docker
+    file
+    unzip
+    yt-dlp
+
+    # Random deps
+    nvidia-container-toolkit
 
     # Programming languages
     nodejs_24
     rustup
+    gcc
     python3
     uv
     go
@@ -168,31 +211,25 @@
     imv           # View images
   ];
 
-  # Some programs need SUID wrappers, can be configured further or are
-  # started in user sessions.
-  # programs.mtr.enable = true;
-  # programs.gnupg.agent = {
-  #   enable = true;
-  #   enableSSHSupport = true;
-  # };
+  # Python needs to be able to link to various things
+  programs.nix-ld.enable = true;
+  programs.nix-ld.libraries = with pkgs; [
+    stdenv.cc.cc.lib
+    zlib
+    libGL
+    glib
+    fontconfig
+    freetype
+    openssl
+    portaudio
+    openblas
+    cudaPackages_12.cudatoolkit
+    cudaPackages_12.libcublas
+    cudaPackages_12.cudnn
+    linuxPackages.nvidia_x11
+  ];
 
-  # List services that you want to enable:
-
-  # Enable the OpenSSH daemon.
-  # services.openssh.enable = true;
-
-  # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
-  # Or disable the firewall altogether.
-  # networking.firewall.enable = false;
-
-  # This value determines the NixOS release from which the default
-  # settings for stateful data, like file locations and database versions
-  # on your system were taken. It‘s perfectly fine and recommended to leave
-  # this value at the release version of the first install of this system.
-  # Before changing this value read the documentation for this option
-  # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
+  # Do not edit this line ever
   system.stateVersion = "25.11"; # Did you read the comment?
-
+  # Nah for real, did you read the comment?
 }
