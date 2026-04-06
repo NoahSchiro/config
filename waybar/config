@@ -1,0 +1,29 @@
+{
+    "layer": "top",
+    "position": "top",
+    "height": 25,
+    "modules-left": ["sway/workspaces", "sway/mode"],
+    "modules-center": ["clock"],
+    "modules-right": ["cpu", "memory", "battery", "pulseaudio"],
+    "sway/workspaces": {
+        "disable-scroll": true
+    },
+    "clock": {
+        "format": "{:%a %d %b  %H:%M:%S}",
+		"interval": 1
+    },
+    "cpu": {
+        "format": " CPU: {usage}%"
+    },
+    "memory": {
+        "format": " Mem: {}%"
+    },
+    "battery": {
+        "format": "🔋: {capacity}%",
+        "format-charging": " {capacity}%"
+    },
+    "pulseaudio": {
+        "format": "🔊: {volume}%",
+		"on-click": "pavucontrol"
+    }
+}
