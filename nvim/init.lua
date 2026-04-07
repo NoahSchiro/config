@@ -69,6 +69,42 @@ require("lazy").setup({
 
   -- "gc" to comment visual regions/lines
   { 'numToStr/Comment.nvim', opts = {} },
+
+  -- Set shiftwidth based on file type automatically
+  { "tpope/vim-sleuth", event = "BufReadPre" },
+
+  {
+    "iamcco/markdown-preview.nvim",
+    cmd = { "MarkdownPreview", "MarkdownPreviewStop", "MarkdownPreviewToggle" },
+    ft = { "markdown" },
+    build = "cd app && npm install",
+    keys = {
+      { "<leader>m", "<cmd>MarkdownPreviewToggle<cr>", desc = "Markdown Preview" },
+    },
+    config = function()
+      vim.g.mkdp_auto_start = 0       -- don't open automatically on entering a md file
+      vim.g.mkdp_auto_close = 1       -- close preview when leaving the md buffer
+      vim.g.mkdp_refresh_slow = 0     -- refresh in real time (not on save only)
+      vim.g.mkdp_open_to_the_world = 0
+      vim.g.mkdp_browser = ""         -- use system default browser, or set e.g. "firefox"
+      vim.g.mkdp_theme = "dark"       -- "dark" or "light"
+      vim.g.mkdp_preview_options = {
+        sync_scroll_type = "top",
+        hide_yaml_meta = 1,
+        disable_filename = 0,
+      }
+    end,
+  },
+
+  {
+    'chomosuke/typst-preview.nvim',
+    lazy = false,
+    version = '1.*',
+    keys = {
+      { "<leader>tp", "<cmd>TypstPreviewToggle<cr>", desc = "Typst Preview" },
+    },
+    opts = {},
+  },
   
   -- Fuzzy Finder (files, lsp, etc)
   {
