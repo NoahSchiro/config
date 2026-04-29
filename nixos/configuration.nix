@@ -184,6 +184,7 @@
     nvidia-container-toolkit
 
     # Programming languages
+    cmake
     nodejs_24
     rustup
     gcc
