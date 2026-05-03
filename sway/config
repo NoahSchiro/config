@@ -32,7 +32,7 @@ bindsym XF86MonBrightnessUp exec brightnessctl set +10%
 bindsym XF86MonBrightnessDown exec brightnessctl set 10%-
 
 # screenshots
-bindsym $mod+p exec bash -c grim -g "$(slurp)" ~/$(date +%Y-%m-%d_%H-%M-%S).png
+bindsym $mod+p exec bash -c 'grim -g "$(slurp)" ~/$(date +%Y-%m-%d_%H-%M-%S).png'
 
 # background photo
 output * bg ~/.config/sway/wallpaper.jpg fill
