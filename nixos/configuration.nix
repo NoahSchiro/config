@@ -116,6 +116,10 @@
     GLFW_IM_MODULE = "ibus";
   };
 
+  environment.variables = {
+    SSL_CERT_FILE = "${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt";
+  };
+
   programs.sway = {
     enable = false;
     #wrapperFeatures.gtk = true;
@@ -154,6 +158,18 @@
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
+  # Something below needs electron and for
+  # some reason it is insecure
+  nixpkgs.config.permittedInsecurePackages = [
+    "electron-39.8.10"
+  ];
+
+  # Needed for gnupg for some reason
+  programs.gnupg.agent = {
+    enable = true;
+    pinentryPackage = pkgs.pinentry-curses;
+  };
+
   # Packages
   environment.systemPackages = with pkgs; [
 
@@ -164,9 +180,9 @@
 
     # Terminal programs
     ffmpeg_7
+    gnupg
     mpv
     portaudio
-    neofetch
     alacritty
     vim
     neovim
