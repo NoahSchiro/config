@@ -189,6 +189,7 @@
     wget
     btop
     git
+    mdbook
     tree-sitter
     tree
     docker
