@@ -68,7 +68,9 @@
   hardware.nvidia-container-toolkit.enable = true;
 
   hardware.nvidia = {
-    package = config.boot.kernelPackages.nvidiaPackages.stable;
+    # Patch for my old ass hardware, should in general be stable instead
+    package = config.boot.kernelPackages.nvidiaPackages.legacy_580;
+    #package = config.boot.kernelPackages.nvidiaPackages.stable;
 
     # Required for Wayland
     modesetting.enable = true;
@@ -119,6 +121,11 @@
   environment.variables = {
     SSL_CERT_FILE = "${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt";
   };
+
+  # Enable bluetooth
+  hardware.bluetooth.enable = true;
+  hardware.bluetooth.powerOnBoot = true;
+  hardware.enableAllFirmware = true;
 
   programs.sway = {
     enable = false;
@@ -175,6 +182,7 @@
 
     # GUI programs
     firefox
+    thunderbird
     bitwarden-desktop
     anki
 
@@ -184,6 +192,7 @@
     mpv
     portaudio
     alacritty
+    opencode
     vim
     neovim
     wget
@@ -196,6 +205,7 @@
     file
     unzip
     yt-dlp
+    bluetuith
 
     # Random deps
     nvidia-container-toolkit
@@ -205,6 +215,7 @@
     nodejs_24
     rustup
     gcc
+    gnumake
     python3
     uv
     go
