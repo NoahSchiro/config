@@ -37,6 +37,13 @@ bindsym $mod+p exec bash -c 'grim -g "$(slurp)" ~/$(date +%Y-%m-%d_%H-%M-%S).png
 # background photo
 output * bg ~/.config/sway/wallpaper.jpg fill
 
+# Lock screen after 10 min idle, then turn off display
+exec swayidle -w \
+    timeout 600 'swaylock -f' \
+    timeout 660 'swaymsg "output * dpms off"' \
+    resume 'swaymsg "output * dpms on"' \
+    before-sleep 'swaylock -f'
+
 # Start multi keyboard setup
 exec --no-startup-id fcitx5 -d
 
@@ -46,19 +53,13 @@ bindsym $mod+k focus down
 bindsym $mod+l focus up
 bindsym $mod+semicolon focus right
 
-# alternatively, you can use the cursor keys:
+# change focus with arrow keys
 bindsym $mod+Left focus left
 bindsym $mod+Down focus down
 bindsym $mod+Up focus up
 bindsym $mod+Right focus right
 
-# move focused window
-bindsym $mod+Shift+j move left
-bindsym $mod+Shift+k move down
-bindsym $mod+Shift+l move up
-bindsym $mod+Shift+semicolon move right
-
-# alternatively, you can use the cursor keys:
+# Move windows around you:
 bindsym $mod+Shift+Left move left
 bindsym $mod+Shift+Down move down
 bindsym $mod+Shift+Up move up
@@ -86,6 +87,9 @@ bindsym $mod+space focus mode_toggle
 
 # focus the parent container
 bindsym $mod+a focus parent
+
+# Lock the system 
+bindsym $mod+Shift+l exec swaylock -f
 
 # focus the child container
 #bindsym $mod+d focus child
