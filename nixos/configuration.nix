@@ -15,6 +15,9 @@
   # Enable networking
   networking.networkmanager.enable = true;
 
+  # Enable VPN
+  services.mullvad-vpn.enable = true;
+
   # Set your time zone.
   time.timeZone = "America/New_York";
 
@@ -69,8 +72,8 @@
 
   hardware.nvidia = {
     # Patch for my old ass hardware, should in general be stable instead
-    package = config.boot.kernelPackages.nvidiaPackages.legacy_580;
-    #package = config.boot.kernelPackages.nvidiaPackages.stable;
+    #package = config.boot.kernelPackages.nvidiaPackages.legacy_580;
+    package = config.boot.kernelPackages.nvidiaPackages.stable;
 
     # Required for Wayland
     modesetting.enable = true;
@@ -131,12 +134,14 @@
     enable = false;
     #wrapperFeatures.gtk = true;
   };
+
+  security.pam.services.swaylock = {};
   
   services.greetd = {
     enable = true;
     settings = {
       default_session = {
-        command = "${pkgs.tuigreet}/bin/tuigreet --time --cmd 'dbus-run-session sway'";
+        command = "${pkgs.tuigreet}/bin/tuigreet --time --cmd 'dbus-run-session sway --unsupported-gpu'";
 	user = "greeter";
       };
     };
@@ -184,7 +189,8 @@
     firefox
     thunderbird
     bitwarden-desktop
-    anki
+    steam
+    prismlauncher
 
     # Terminal programs
     ffmpeg_7
@@ -196,6 +202,7 @@
     vim
     neovim
     wget
+    mullvad
     btop
     git
     mdbook
@@ -232,7 +239,7 @@
     swaybg        # Set background images
     waybar        # Status bar
     wofi          # Program launcher
-    nemo          # Package manager
+    nemo          # File manager
     pavucontrol   # Sound
     brightnessctl # Brightness
     grim          # Screenshots
