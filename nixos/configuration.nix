@@ -191,6 +191,8 @@
     bitwarden-desktop
     steam
     prismlauncher
+    orca-slicer 
+    freecad
 
     # Terminal programs
     ffmpeg_7
