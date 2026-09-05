@@ -187,6 +187,7 @@
 
     # GUI programs
     firefox
+    libreoffice
     thunderbird
     bitwarden-desktop
     steam
@@ -196,6 +197,7 @@
 
     # Terminal programs
     ffmpeg_7
+    sqlite
     gnupg
     mpv
     portaudio
