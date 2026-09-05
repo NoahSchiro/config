@@ -194,6 +194,8 @@
     prismlauncher
     orca-slicer 
     freecad
+    slack
+    rstudio # needs to be removed in December 2026
 
     # Terminal programs
     ffmpeg_7
@@ -217,6 +219,7 @@
     unzip
     yt-dlp
     bluetuith
+    qemu
 
     # Random deps
     nvidia-container-toolkit
