@@ -98,6 +98,8 @@
   environment.sessionVariables = {
     # For Electron apps and others to use Wayland
     NIXOS_OZONE_WL = "1";
+
+    XDG_CURRENT_DESKTOP = "sway";
     
     # Tell apps to use the NVIDIA card
     GBM_BACKEND = "nvidia-drm";
@@ -184,6 +186,18 @@
     pinentryPackage = pkgs.pinentry-curses;
   };
 
+  # Needed for OBS capture
+  services.pipewire = {
+    enable = true;
+    alsa.enable = true;
+    pulse.enable = true;
+  };
+  xdg.portal = {
+    enable = true;
+    wlr.enable = true;
+    config.common.default = [ "wlr" ];
+  };
+
   # Packages
   environment.systemPackages = with pkgs; [
 
@@ -197,7 +211,6 @@
     orca-slicer 
     freecad
     slack
-    rstudio # needs to be removed in December 2026
 
     # Terminal programs
     ffmpeg_7
@@ -207,6 +220,7 @@
     portaudio
     alacritty
     opencode
+    pi-coding-agent
     vim
     neovim
     wget
@@ -253,6 +267,7 @@
     brightnessctl # Brightness
     grim          # Screenshots
     slurp         # Screenshots
+    obs-studio    # Screen recordings
     imv           # View images
   ];
 
