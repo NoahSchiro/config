@@ -95,7 +95,6 @@
     enable32Bit = true; # For 32 bit apps (steam)
   };
 
-  # Required environment variables for Wayland + NVIDIA
   environment.sessionVariables = {
     # For Electron apps and others to use Wayland
     NIXOS_OZONE_WL = "1";
@@ -107,8 +106,11 @@
     # Sometimes needed for cursor rendering
     WLR_NO_HARDWARE_CURSORS = "1";
 
-    # If using a compositor like Hyprland or sway that uses wlroots:
+    # If using a compositor like sway that uses wlroots:
     WLR_RENDERER = "vulkan"; # optional
+
+    # Allows python packages to make C/C++ ffi calls
+    LD_LIBRARY_PATH = "/run/current-system/sw/share/nix-ld/lib";
 
     # Make dark theme
     GTK_THEME = "Adwaita:dark";
