@@ -72,8 +72,8 @@
 
   hardware.nvidia = {
     # Patch for my old ass hardware, should in general be stable instead
-    #package = config.boot.kernelPackages.nvidiaPackages.legacy_580;
-    package = config.boot.kernelPackages.nvidiaPackages.stable;
+    package = config.boot.kernelPackages.nvidiaPackages.legacy_580;
+    #package = config.boot.kernelPackages.nvidiaPackages.stable;
 
     # Required for Wayland
     modesetting.enable = true;
@@ -225,11 +225,13 @@
     mullvad
     btop
     git
+    git-lfs
     mdbook
     tree-sitter
     tree
     docker
     file
+    zip
     unzip
     yt-dlp
     bluetuith
@@ -284,7 +286,7 @@
     cudaPackages_12.cudatoolkit
     cudaPackages_12.libcublas
     cudaPackages_12.cudnn
-    linuxPackages.nvidia_x11
+    config.hardware.nvidia.package
   ];
 
   # Do not edit this line ever
