@@ -112,7 +112,7 @@
     WLR_RENDERER = "vulkan"; # optional
 
     # Allows python packages to make C/C++ ffi calls
-    LD_LIBRARY_PATH = "/run/current-system/sw/share/nix-ld/lib";
+    #LD_LIBRARY_PATH = "/run/current-system/sw/share/nix-ld/lib";
 
     # Make dark theme
     GTK_THEME = "Adwaita:dark";
