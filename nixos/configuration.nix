@@ -216,7 +216,6 @@
     mpv
     portaudio
     alacritty
-    opencode
     pi-coding-agent
     vim
     neovim
@@ -241,6 +240,7 @@
 
     # Programming languages
     cmake
+    just
     nodejs_24
     rustup
     gcc
