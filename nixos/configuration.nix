@@ -158,7 +158,7 @@
   users.users.noah = {
     isNormalUser = true;
     description = "Noah Schiro";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ "networkmanager" "wheel" "docker" ];
     packages = with pkgs; [];
   };
 
