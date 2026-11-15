@@ -9,6 +9,12 @@
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+
+  # Allows perf recordings
+  boot.kernel.sysctl = {
+    "kernel.perf_event_paranoid" = 1;
+  };
+
   # Define your hostname.
   networking.hostName = "nixos";
 
@@ -234,6 +240,10 @@
     yt-dlp
     bluetuith
     qemu
+    perf
+    ripgrep
+    google-cloud-sdk
+    firebase-tools
 
     # Random deps
     nvidia-container-toolkit
