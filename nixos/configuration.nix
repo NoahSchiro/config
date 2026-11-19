@@ -77,9 +77,10 @@
   hardware.nvidia-container-toolkit.enable = true;
 
   hardware.nvidia = {
-    # Patch for my old ass hardware, should in general be stable instead
-    # package = config.boot.kernelPackages.nvidiaPackages.legacy_580;
-    package = config.boot.kernelPackages.nvidiaPackages.stable;
+    ### NEEDED on laptop
+    package = config.boot.kernelPackages.nvidiaPackages.legacy_580;
+    ### NEEDED on laptop
+    #package = config.boot.kernelPackages.nvidiaPackages.stable;
 
     # Required for Wayland
     modesetting.enable = true;
@@ -292,6 +293,13 @@
     openssl
     portaudio
     openblas
+
+    ### NEEDED on laptop
+    cudaPackages_12.cudatoolkit
+    cudaPackages_12.libcublas
+    cudaPackages_12.cudnn
+    ### NEEDED on laptop
+
     config.hardware.nvidia.package
   ];
 
