@@ -243,7 +243,7 @@
     perf
     ripgrep
     google-cloud-sdk
-    firebase-tools
+    awscli2
 
     # Random deps
     nvidia-container-toolkit
