@@ -78,8 +78,8 @@
 
   hardware.nvidia = {
     # Patch for my old ass hardware, should in general be stable instead
-    package = config.boot.kernelPackages.nvidiaPackages.legacy_580;
-    #package = config.boot.kernelPackages.nvidiaPackages.stable;
+    # package = config.boot.kernelPackages.nvidiaPackages.legacy_580;
+    package = config.boot.kernelPackages.nvidiaPackages.stable;
 
     # Required for Wayland
     modesetting.enable = true;
