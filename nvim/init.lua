@@ -239,6 +239,16 @@ require("lazy").setup({
     end,
   },
 
+  -- Autocomplete (works with the LSP above, no extra config needed)
+  {
+    'saghen/blink.cmp',
+    version = '1.*',
+    opts = {
+      -- Accept the selected completion with <CR>, otherwise behave normally (newline)
+      keymap = { ['<CR>'] = { 'accept', 'fallback' } },
+    },
+  },
+
   -- Highlight, edit, and navigate code
   { 
     'nvim-treesitter/nvim-treesitter',
