@@ -228,6 +228,7 @@
     neovim
     wget
     mullvad
+    wireguard-tools
     btop
     git
     git-lfs
