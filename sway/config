@@ -27,6 +27,9 @@ bindsym $mod+Return exec alacritty
 # kill focused window
 bindsym $mod+Shift+q kill
 
+# lock screen
+bindsym $mod+l exec swaylock
+
 # start wofi (a program launcher)
 bindsym $mod+d exec --no-startup-id wofi --show drun --width 1000 --height 600 --prompt "Search"
 
@@ -51,12 +54,6 @@ exec swayidle -w \
 exec --no-startup-id fcitx5 -d
 
 # change focus
-bindsym $mod+j focus left
-bindsym $mod+k focus down
-bindsym $mod+l focus up
-bindsym $mod+semicolon focus right
-
-# change focus with arrow keys
 bindsym $mod+Left focus left
 bindsym $mod+Down focus down
 bindsym $mod+Up focus up
